@@ -19,5 +19,4 @@ Setup & Installation
 3. To install the required dependencies and run the project just type ```docker-compose up --build``` in linux ```sudo docker-compose up --build```
 
 
-
 # Flask-Microservice
