@@ -23,10 +23,6 @@ This Docker image packages a Flask microservice-based application. The lightweig
 ```docker-compose up --build```
 
 <<<<<<< HEAD
-1. Clone the Repository ```git clone <url>```
-2. cd to Microservices ```cd Microservices```
-3. To install the required dependencies and run the project just type ```docker-compose up --build``` in linux ```sudo docker-compose up --build```
-=======
 📝Running Tests
 To ensure that both the User and Order services work correctly, run the test suite:
 For User:
