@@ -4,7 +4,6 @@ import requests, os
 from flask_swagger_ui import get_swaggerui_blueprint
 from flask_cors import CORS
 
-
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///orders.db'
 CORS(app)
@@ -26,10 +25,10 @@ class Order(db.Model):
 
 @app.route('/static/<path:path>')
 def send_static(path):
-    return send_from_directory(os.path.join(os.getcwd(), 'Order_Service/static'), path)  # Corrected path
+    return send_from_directory(os.path.join(os.getcwd(), 'Order_Service/static'), path)
 
 SWAGGER_URL = '/swagger'
-API_URL = '/static/swagger.json'  # Corrected path
+API_URL = '/static/swagger.json'
 
 swaggerui_blueprint = get_swaggerui_blueprint(
     SWAGGER_URL,
@@ -39,7 +38,6 @@ swaggerui_blueprint = get_swaggerui_blueprint(
 
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
 
-
 @app.route('/orders', methods=['GET'])
 def get_orders():
     orders = Order.query.all()
@@ -48,7 +46,7 @@ def get_orders():
 
 @app.route('/orders/<int:order_id>', methods=['GET'])
 def get_order(order_id):
-    order = Order.query.get(order_id)
+    order = db.session.get(Order, order_id)  # ✅ Fixed
     if order:
         return jsonify(order.to_json())
     return jsonify({'error': 'Order not found'}), 404
@@ -71,7 +69,7 @@ def create_order():
 
 @app.route('/orders/<int:order_id>', methods=['PUT'])
 def update_order(order_id):
-    order = Order.query.get(order_id)
+    order = db.session.get(Order, order_id)  # ✅ Fixed
     if not order:
         return jsonify({'error': 'Order not found'}), 404
 
@@ -83,7 +81,7 @@ def update_order(order_id):
 
 @app.route('/orders/<int:order_id>', methods=['DELETE'])
 def delete_order(order_id):
-    order = Order.query.get(order_id)
+    order = db.session.get(Order, order_id)  # ✅ Fixed
     if not order:
         return jsonify({'error': 'Order not found'}), 404
 

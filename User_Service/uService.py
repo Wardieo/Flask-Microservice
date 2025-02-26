@@ -51,27 +51,27 @@ def register():
 
 @app.route('/users/<int:user_id>', methods=['GET'])
 def get_user(user_id):
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)  # Updated method
     if user:
         return jsonify(user.to_json())
     return jsonify({'error': 'User not found'}), 404
 
 @app.route('/users/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)  # Updated method
     if not user:
         return jsonify({'error': 'User not found'}), 404
 
     data = request.json
-    user.name = data.get('name', user.name)  # Update name if provided
-    user.email = data.get('email', user.email)  # Update email if provided
+    user.name = data.get('name', user.name)
+    user.email = data.get('email', user.email)
 
     db.session.commit()
     return jsonify({'message': 'User updated', 'user': user.to_json()})
 
 @app.route('/users/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)  # Updated method
     if not user:
         return jsonify({'error': 'User not found'}), 404
 
