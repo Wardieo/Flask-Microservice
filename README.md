@@ -5,7 +5,9 @@
 Features
 
 💼 User Management - Users can be created, read, updated, and deleted (CRUD operations).
+
 🛍️ Order Management - Orders can be created, read, updated, and deleted (CRUD operations).
+
 ⚙️ Automated Testing - Includes test cases for both User and Order services.
 
 OVERVIEW
